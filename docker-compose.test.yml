@@ -1,29 +1,26 @@
 version: '3.9'
 
 networks:
-  test_net:
+  net:
     driver: bridge
 
 services:
-  test_server:
+  server:
+    image: server
     build:
       context: .
       dockerfile: Dockerfile
     volumes:
       - ./:/chroma
-      - test_index_data:/index_data
-    command: uvicorn chromadb.app:app --workers 1 --host 0.0.0.0 --port 8000 --log-config chromadb/log_config.yml --timeout-keep-alive 30
+    command: uvicorn chromadb.app:app --reload --workers 1 --host 0.0.0.0 --port 8000 --log-config chromadb/log_config.yml --timeout-keep-alive 30
     environment:
-      - ANONYMIZED_TELEMETRY=False
-      - ALLOW_RESET=True
       - IS_PERSISTENT=TRUE
     ports:
-      - ${CHROMA_PORT}:8000
+      - 8002:8000
     networks:
-      - test_net
+      - net
+    restart: unless-stopped
 
 volumes:
-  test_index_data:
-    driver: local
-  test_backups:
-    driver: local
+  backup:
+   
