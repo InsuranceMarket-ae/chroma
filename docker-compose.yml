@@ -10,6 +10,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      container_name: chromadb${DOCKERENV}
     volumes:
       - ./:/chroma
       # Be aware that indexed data are located in "/chroma/chroma/"
@@ -28,7 +29,7 @@ services:
       - CHROMA_OTEL_GRANULARITY=${CHROMA_OTEL_GRANULARITY}
       - CHROMA_SERVER_NOFILE=${CHROMA_SERVER_NOFILE}
     ports:
-      - 8000:8000
+      - ${WEB_PORT}:8000
     networks:
       - net
     restart: unless-stopped
