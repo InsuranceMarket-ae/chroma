@@ -12,6 +12,6 @@ steps:
   - publish: '$(System.DefaultWorkingDirectory)'
     artifact: chromatest
 
-- ${{ if eq(variables['Build.SourceBranchName'], 'main') }}:
+- ${{ if eq(variables['Build.SourceBranchName'], 'master') }}:
   - publish: '$(System.DefaultWorkingDirectory)'
     artifact: chromaprd 

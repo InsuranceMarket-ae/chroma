@@ -10,7 +10,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      container_name: chromadb${DOCKERENV}
+    container_name: chromadb${DOCKERENV}
     volumes:
       - ./:/chroma
       # Be aware that indexed data are located in "/chroma/chroma/"
